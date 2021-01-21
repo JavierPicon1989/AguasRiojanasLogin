@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     //ListView listaResultados;
     TextView tv_usuario;
+    Login usuarioView;
 
 
     @Override
@@ -40,7 +41,12 @@ public class MainActivity extends AppCompatActivity {
         tv_usuario = findViewById(R.id.tv_usuario);
         String usuario = getIntent().getStringExtra("user");
         String contraseña = getIntent().getStringExtra("password");
-        tv_usuario.setText("Bienvenid@ " + usuario);
+        String usuarioClass = getIntent().getStringExtra("usuarioClass");
+        tv_usuario.setText("Bienvenid@ " + usuarioClass );
+        //+ usuarioView.usuarioView.getNombre()
+
+
+
 
 
     }

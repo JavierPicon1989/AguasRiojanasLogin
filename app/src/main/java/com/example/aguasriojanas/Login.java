@@ -24,6 +24,7 @@ public class Login extends AppCompatActivity {
     EditText et_usuario, et_contraseña;
 
 
+
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +52,18 @@ public class Login extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         if(response.contains("1")){
+                            Usuario usuarioView = new Usuario(et_contraseña.getText().toString(),et_usuario.getText().toString());
+
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                             Intent intent = new Intent(Login.this, MainActivity.class);
+                            intent.putExtra("usuarioClass",usuarioView.getNombre());
                             intent.putExtra("user",et_usuario.getText().toString());
                             intent.putExtra("password", et_contraseña.getText().toString());
                             startActivity(intent);
+
+
+
+
                         } else{
                             Toast.makeText(getApplicationContext(),
                                     "Usuario o password incorrecto"+response, Toast.LENGTH_SHORT).show();
