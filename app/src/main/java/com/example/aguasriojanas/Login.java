@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity {
     EditText et_usuario, et_contraseña;
 
 
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -36,14 +36,15 @@ public class Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
                 login();
+
             }
         });
 
+
     }
 
-    public void login(){
+        public void login(){
         StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.16/json/login.php",
                 new Response.Listener<String>() {
                     @Override
@@ -51,6 +52,10 @@ public class Login extends AppCompatActivity {
 
                         if(response.contains("1")){
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            intent.putExtra("user",et_usuario.getText().toString());
+                            intent.putExtra("password", et_contraseña.getText().toString());
+                            startActivity(intent);
                         } else{
                             Toast.makeText(getApplicationContext(),
                                     "Usuario o password incorrecto"+response, Toast.LENGTH_SHORT).show();

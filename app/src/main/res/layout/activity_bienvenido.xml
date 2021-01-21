@@ -5,14 +5,23 @@
     android:background="@color/design_default_color_surface"
     android:gravity="center"
     >
-    <TextView
 
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:text="Bienvenido a Aguas Riojanas"
-        android:gravity="center"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"/>
+<!--   <TextView-->
+
+<!--        android:layout_width="220dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:text="Bienvenido a Aguas Riojanas"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="24sp" />-->
+
+    <TextView
+        android:id="@+id/tv_usuario"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_weight="1"
+        android:text="TextView"
+        />
 
 
 </LinearLayout>
