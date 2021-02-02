@@ -6,22 +6,28 @@
     android:gravity="center"
     >
 
-<!--   <TextView-->
-
-<!--        android:layout_width="220dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center_vertical"-->
-<!--        android:text="Bienvenido a Aguas Riojanas"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="24sp" />-->
 
     <TextView
         android:id="@+id/tv_usuario"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_weight="1"
-        android:text="TextView"
-        />
+        android:text="TextView" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_weight="1"
+        android:id="@+id/tv_clase"/>
+
+    <Button
+        android:id="@+id/btnIngresoMicro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center"
+        android:text="Micro Medicion" />
 
 
 </LinearLayout>
