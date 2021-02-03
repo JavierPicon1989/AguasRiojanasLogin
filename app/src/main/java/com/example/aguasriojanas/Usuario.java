@@ -2,12 +2,13 @@ package com.example.aguasriojanas;
 
 public class Usuario {
 
-        String email,nombre;
+        String email,nombre, password;
         Integer id_usuario;
 
-    public Usuario(String email, String nombre, Integer id_usuario) {
+    public Usuario(String email, String nombre, String password, Integer id_usuario) {
         this.email = email;
         this.nombre = nombre;
+        this.password = password;
         this.id_usuario = id_usuario;
     }
 
@@ -27,6 +28,14 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Integer getId_usuario() {
         return id_usuario;
     }
@@ -40,6 +49,7 @@ public class Usuario {
         return "Usuario{" +
                 "email='" + email + '\'' +
                 ", nombre='" + nombre + '\'' +
+                ", password='" + password + '\'' +
                 ", id_usuario=" + id_usuario +
                 '}';
     }

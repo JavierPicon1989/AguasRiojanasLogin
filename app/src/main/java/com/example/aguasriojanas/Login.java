@@ -31,9 +31,22 @@ public class Login extends AppCompatActivity {
     EditText et_usuario, et_contraseña;
     Usuario  usuarioParse;
 
+    public Usuario getUsuarioParse() {
+        return usuarioParse;
+    }
 
+    public void setUsuarioParse(Usuario usuarioParse) {
+        this.usuarioParse = usuarioParse;
+    }
 
-@Override
+    @Override
+    public String toString() {
+        return "Login{" +
+                "usuarioParse=" + usuarioParse +
+                '}';
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -46,13 +59,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
-                //jsonParse();
             }
         });
 }
 
         public void login(){
-        StringRequest request = new StringRequest(Request.Method.POST, "http://192.168.1.16/json/login.php",
+        StringRequest request = new StringRequest(Request.Method.POST,
+                "http://192.168.1.16/json/login.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -61,9 +74,10 @@ public class Login extends AppCompatActivity {
                             jsonParse();
 
                             Intent intent = new Intent(Login.this, MainActivity.class);
-                            //intent.putExtra("usuarioClass",usuarioView.getNombre());
+
                             intent.putExtra("user",et_usuario.getText().toString());
                             intent.putExtra("password", et_contraseña.getText().toString());
+                            intent.putExtra("id_usuario", usuarioParse.getId_usuario().toString());
                             startActivity(intent);
                             } else{
                             Toast.makeText(getApplicationContext(),
@@ -96,7 +110,8 @@ public class Login extends AppCompatActivity {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
             Request.Method.GET,
-            "http://192.168.1.16/json/login.php", null, new Response.Listener<JSONArray>() {
+            "http://192.168.1.16/json/login.php",
+                null, new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
             int size = response.length();
@@ -105,11 +120,12 @@ public class Login extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response.get(i).toString());
                     String nombre= jsonObject.getString("nombre");
                     String email = jsonObject.getString("email");
-                    Integer id_usuario = jsonObject.getInt("id");
-                    //String password = jsonObject.getString("password");
+                    String password = jsonObject.getString("password");
+                    Integer id_usuario = jsonObject.getInt("id_usuario");
 
-                    //CREO UN OBJETO DEL TIPO USUARIO PARA SETEAR SUS VALORES
-                    usuarioParse = new Usuario(email,nombre,id_usuario);
+                    //INICIALIZO UN OBJETO DEL TIPO USUARIO PARA SETEAR SUS VALORES
+
+                    usuarioParse = new Usuario(email, nombre, password, id_usuario);
 
                 }catch (JSONException e){
                     e.printStackTrace();

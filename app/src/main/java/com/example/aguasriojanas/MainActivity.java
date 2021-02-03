@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tv_usuario, tv_clase;
     Button btnIngresoMicro;
 
-    Login usuarioView;
+    Login usuarioLogin;
 
 
     @Override
@@ -36,15 +36,16 @@ public class MainActivity extends AppCompatActivity {
         tv_clase = findViewById(R.id.tv_clase);
         btnIngresoMicro = findViewById(R.id.btnIngresoMicro);
         String usuario = getIntent().getStringExtra("user");
-        tv_usuario.setText("Bienvenid@ " + usuario);
-        //tv_clase.setText(usuarioView.usuarioParse.getEmail().toString());
+        String id_usuario = getIntent().getStringExtra("id_usuario");
+        int id_usuario1 = Integer.parseInt(id_usuario);
+        tv_usuario.setText("Bienvenid@   " + usuario);
+        tv_clase.setText(id_usuario1);
 
 
         btnIngresoMicro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Micromedicion.class);
-                startActivity(intent);
+                ingresoMicro();
             }
         });
 
@@ -57,13 +58,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        if (response.isEmpty()){
-                         Toast.makeText(getApplicationContext(),
-                         "El usuario no tiene permmiso de acceso"+response, Toast.LENGTH_SHORT).show();
+                        if (response.contains("administrador")){
+                            Intent intent = new Intent(MainActivity.this, Micromedicion.class);
 
+                            //intent.putExtra("id_usuario",usuarioLogin.usuarioParse.getId_usuario().toString());
+
+                            startActivity(intent);
                         }else{
-                        Intent intent = new Intent(MainActivity.this, Micromedicion.class);
 
+                            Toast.makeText(getApplicationContext(),
+                                    "El usuario no tiene permmiso de acceso"+response, Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -72,7 +76,15 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params= new HashMap<>();
+
+                params.put("id_usuario", usuarioLogin.usuarioParse.getId_usuario().toString());
+                return params;
+            }
+        };
                 Volley.newRequestQueue(this).add(request);
     }
 }
