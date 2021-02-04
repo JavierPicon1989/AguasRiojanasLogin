@@ -1,8 +1,10 @@
-package com.example.aguasriojanas;
+package ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.aguasriojanas.R;
 
 public class Micromedicion extends AppCompatActivity {
 
