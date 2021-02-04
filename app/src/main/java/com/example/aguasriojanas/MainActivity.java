@@ -20,12 +20,14 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import modelo.Login;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tv_usuario, tv_clase;
     Button btnIngresoMicro;
 
-    Login usuarioLogin;
+    Login usuarioLogin= new Login();
 
 
     @Override
@@ -37,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         btnIngresoMicro = findViewById(R.id.btnIngresoMicro);
         String usuario = getIntent().getStringExtra("user");
         String id_usuario = getIntent().getStringExtra("id_usuario");
-        int id_usuario1 = Integer.parseInt(id_usuario);
+        //int id_usuario1 = Integer.parseInt(id_usuario);
         tv_usuario.setText("Bienvenid@   " + usuario);
-        tv_clase.setText(id_usuario1);
+        tv_clase.setText(id_usuario);
 
 
         btnIngresoMicro.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params= new HashMap<>();
-
-                params.put("id_usuario", usuarioLogin.usuarioParse.getId_usuario().toString());
+                params.put("id_user", usuarioLogin.getUsuarioParse().getId_usuario().toString());
                 return params;
             }
         };

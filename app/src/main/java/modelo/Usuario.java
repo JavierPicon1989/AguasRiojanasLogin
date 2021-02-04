@@ -1,11 +1,10 @@
-package com.example.aguasriojanas;
+package modelo;
 
 public class Usuario {
 
-        String email,nombre, password;
-        Integer id_usuario;
+        String email,nombre, password, id_usuario;
 
-    public Usuario(String email, String nombre, String password, Integer id_usuario) {
+    public Usuario(String email, String nombre, String password, String id_usuario) {
         this.email = email;
         this.nombre = nombre;
         this.password = password;
@@ -36,11 +35,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public Integer getId_usuario() {
+    public String getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(Integer id_usuario) {
+    public void setId_usuario(String id_usuario) {
         this.id_usuario = id_usuario;
     }
 
@@ -50,7 +49,7 @@ public class Usuario {
                 "email='" + email + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", password='" + password + '\'' +
-                ", id_usuario=" + id_usuario +
+                ", id_usuario='" + id_usuario + '\'' +
                 '}';
     }
 }

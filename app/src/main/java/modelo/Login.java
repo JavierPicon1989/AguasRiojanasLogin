@@ -1,10 +1,9 @@
-package com.example.aguasriojanas;
+package modelo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,19 +16,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.aguasriojanas.MainActivity;
+import com.example.aguasriojanas.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
     Button btn_login;
     EditText et_usuario, et_contraseña;
-    Usuario  usuarioParse;
+    Usuario usuarioParse ;
 
     public Usuario getUsuarioParse() {
         return usuarioParse;
@@ -58,6 +58,7 @@ public class Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 login();
             }
         });
@@ -71,7 +72,15 @@ public class Login extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         if(response.contains("email")){
-                            jsonParse();
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                usuarioParse.setId_usuario(jsonObject.getString("id_usuario"));
+                                usuarioParse.setEmail(jsonObject.getString("email"));
+                                usuarioParse.setNombre(jsonObject.getString("nombre"));
+                                usuarioParse.setPassword(jsonObject.getString("password"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
                             Intent intent = new Intent(Login.this, MainActivity.class);
 
@@ -106,7 +115,7 @@ public class Login extends AppCompatActivity {
 
 
         //Metodo para castear un JSON enviado desde php
-        public void jsonParse(){
+        /*public void jsonParse(){
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
             Request.Method.GET,
@@ -142,6 +151,6 @@ public class Login extends AppCompatActivity {
 
     );
 
-        }
+        }*/
 
 }

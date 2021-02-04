@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AguasRiojanas">
         <activity android:name=".Micromedicion"></activity>
-        <activity android:name=".Login">
+        <activity android:name="modelo.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
