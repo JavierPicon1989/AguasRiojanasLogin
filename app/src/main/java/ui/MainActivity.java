@@ -21,14 +21,12 @@ import com.example.aguasriojanas.R;
 import java.util.HashMap;
 import java.util.Map;
 
-import modelo.Login;
-
 public class MainActivity extends AppCompatActivity {
 
     TextView tv_usuario, tv_clase;
     Button btnIngresoMicro;
 
-    Login usuarioLogin= new Login();
+    Login usuarioLogin;
 
 
     @Override
@@ -38,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
         tv_usuario = findViewById(R.id.tv_usuario);
         tv_clase = findViewById(R.id.tv_clase);
         btnIngresoMicro = findViewById(R.id.btnIngresoMicro);
-        String usuario = getIntent().getStringExtra("user");
-        String id_usuario = getIntent().getStringExtra("id_usuario");
+        String usuarioNombre = getIntent().getStringExtra("user");
+
         //int id_usuario1 = Integer.parseInt(id_usuario);
-        tv_usuario.setText("Bienvenid@   " + usuario);
-        tv_clase.setText(id_usuario);
+        tv_usuario.setText("Bienvenid@ " + usuarioNombre);
+        //tv_clase.setText(id_usuario);
 
 
         btnIngresoMicro.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if (response.contains("administrador")){
                             Intent intent = new Intent(MainActivity.this, Micromedicion.class);
-
-                            //intent.putExtra("id_usuario",usuarioLogin.usuarioParse.getId_usuario().toString());
-
                             startActivity(intent);
                         }else{
-
                             Toast.makeText(getApplicationContext(),
                                     "El usuario no tiene permmiso de acceso"+response, Toast.LENGTH_SHORT).show();
                         }
@@ -83,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params= new HashMap<>();
-                params.put("id_user", usuarioLogin.getUsuarioParse().getId_usuario().toString());
+                String id_usuario = getIntent().getStringExtra("id_usuario");
+                System.out.println(id_usuario);
+                params.put("id_user", id_usuario);
                 return params;
             }
         };

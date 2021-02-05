@@ -1,4 +1,4 @@
-package modelo;
+package ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,12 +15,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import ui.MainActivity;
+
+import modelo.Usuario;
+
 import com.example.aguasriojanas.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,19 +75,26 @@ public class Login extends AppCompatActivity {
                         if(response.contains("email")){
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
-                                usuarioParse.setId_usuario(jsonObject.getString("id_usuario"));
+                                //String us= jsonObject.getString("id");
+                                usuarioParse.setId_usuario(jsonObject.getString("id"));
                                 usuarioParse.setEmail(jsonObject.getString("email"));
                                 usuarioParse.setNombre(jsonObject.getString("nombre"));
                                 usuarioParse.setPassword(jsonObject.getString("password"));
+                                System.out.println(usuarioParse);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                             Intent intent = new Intent(Login.this, MainActivity.class);
 
                             intent.putExtra("user",et_usuario.getText().toString());
                             intent.putExtra("password", et_contraseña.getText().toString());
-                            intent.putExtra("id_usuario", usuarioParse.getId_usuario().toString());
+                            //String id= usuarioParse.getId_usuario().toString();
+
+                            //ACA ES DONDE ESTA LO QUE NO PUEDO RESOLVER
+                            //intent.putExtra("id_usuario", id);
+                            intent.putExtra("id_usuario", "1");
+
                             startActivity(intent);
                             } else{
                             Toast.makeText(getApplicationContext(),
@@ -111,44 +121,5 @@ public class Login extends AppCompatActivity {
 
         }
 
-
-        //Metodo para castear un JSON enviado desde php
-        /*public void jsonParse(){
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-            Request.Method.GET,
-            "http://192.168.1.16/json/login.php",
-                null, new Response.Listener<JSONArray>() {
-        @Override
-        public void onResponse(JSONArray response) {
-            int size = response.length();
-            for(int i=0;i<size;i++){
-                try {
-                    JSONObject jsonObject = new JSONObject(response.get(i).toString());
-                    String nombre= jsonObject.getString("nombre");
-                    String email = jsonObject.getString("email");
-                    String password = jsonObject.getString("password");
-                    Integer id_usuario = jsonObject.getInt("id_usuario");
-
-                    //INICIALIZO UN OBJETO DEL TIPO USUARIO PARA SETEAR SUS VALORES
-
-                    usuarioParse = new Usuario(email, nombre, password, id_usuario);
-
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-
-             }
-        }
-        }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-
-        }
-    }
-
-    );
-
-        }*/
 
 }
