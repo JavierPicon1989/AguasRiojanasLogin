@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         String usuarioNombre = getIntent().getStringExtra("user");
 
         //int id_usuario1 = Integer.parseInt(id_usuario);
-        tv_usuario.setText("Bienvenid@ " + usuarioNombre);
+        tv_usuario.setText("Bienvenid@   " + usuarioNombre);
         //tv_clase.setText(id_usuario);
 
 
