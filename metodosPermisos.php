@@ -11,13 +11,16 @@
                 }
                 $data = array();
                 $i=0;
+                
                 //Recorremos el arreglo
                 while($row = mysqli_fetch_array($result))
                 {
                     $data[$i] = $row;
                     $i++;
                 }
+                
                 return $data;
+                
         }
 /*----------------------------------------------------------------*/
         function agregarPermiso($id_users,$id_modulos){
