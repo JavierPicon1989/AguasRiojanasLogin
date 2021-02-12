@@ -21,12 +21,13 @@ import com.example.aguasriojanas.R;
 import java.util.HashMap;
 import java.util.Map;
 
+import modelo.Usuario;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView tv_usuario, tv_clase;
     Button btnIngresoMicro;
 
-    Login usuarioLogin;
 
 
     @Override
@@ -37,15 +38,12 @@ public class MainActivity extends AppCompatActivity {
         tv_clase = findViewById(R.id.tv_clase);
         btnIngresoMicro = findViewById(R.id.btnIngresoMicro);
         String usuarioNombre = getIntent().getStringExtra("user");
-
-        //int id_usuario1 = Integer.parseInt(id_usuario);
         tv_usuario.setText("Bienvenid@   " + usuarioNombre);
-        //tv_clase.setText(id_usuario);
-
 
         btnIngresoMicro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ingresoMicro();
             }
         });
@@ -60,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         if (response.contains("administrador")){
-                            Intent intent = new Intent(MainActivity.this, Micromedicion.class);
+                            Intent intent = new Intent(MainActivity.this, MapMicroAguas.class);
                             startActivity(intent);
                         }else{
                             Toast.makeText(getApplicationContext(),
-                                    "El usuario no tiene permmiso de acceso"+response, Toast.LENGTH_SHORT).show();
+                                    "El usuario no tiene permmiso de acceso", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -77,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params= new HashMap<>();
-                String id_usuario = getIntent().getStringExtra("id_usuario");
-                System.out.println(id_usuario);
-                params.put("id_user", id_usuario);
+
+                //String id = getIntent().getStringExtra("id_usuario");
+                params.put("id_user", Login.usuario.getId_usuario().toString());
                 return params;
             }
         };

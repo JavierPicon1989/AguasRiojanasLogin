@@ -1,14 +1,23 @@
 package modelo;
 
-public class Usuario {
+import java.io.Serializable;
 
-        String email,nombre, password, id_usuario;
+public class Usuario implements Serializable {
 
-    public Usuario(String email, String nombre, String password, String id_usuario) {
-        this.email = email;
-        this.nombre = nombre;
-        this.password = password;
-        this.id_usuario = id_usuario;
+        public  String email, nombre, password, id_usuario;
+
+    public Usuario() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "email='" + email + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", password='" + password + '\'' +
+                ", id_usuario='" + id_usuario + '\'' +
+                '}';
     }
 
     public String getEmail() {
@@ -43,13 +52,10 @@ public class Usuario {
         this.id_usuario = id_usuario;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "email='" + email + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", password='" + password + '\'' +
-                ", id_usuario='" + id_usuario + '\'' +
-                '}';
+    public Usuario(String email, String nombre, String password, String id_usuario) {
+        this.email = email;
+        this.nombre = nombre;
+        this.password = password;
+        this.id_usuario = id_usuario;
     }
 }

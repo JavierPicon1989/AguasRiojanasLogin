@@ -20,34 +20,19 @@ import modelo.Usuario;
 
 import com.example.aguasriojanas.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Console;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
     Button btn_login;
     EditText et_usuario, et_contraseña;
-    Usuario usuarioParse ;
+    public static Usuario usuario;
 
-    public Usuario getUsuarioParse() {
-        return usuarioParse;
-    }
-
-    public void setUsuarioParse(Usuario usuarioParse) {
-        this.usuarioParse = usuarioParse;
-    }
-
-    @Override
-    public String toString() {
-        return "Login{" +
-                "usuarioParse=" + usuarioParse +
-                '}';
-    }
-
-    @Override
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -72,29 +57,23 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        if(response.contains("email")){
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                //String us= jsonObject.getString("id");
-                                usuarioParse.setId_usuario(jsonObject.getString("id"));
-                                usuarioParse.setEmail(jsonObject.getString("email"));
-                                usuarioParse.setNombre(jsonObject.getString("nombre"));
-                                usuarioParse.setPassword(jsonObject.getString("password"));
-                                System.out.println(usuarioParse);
+                        try {
+                            usuario = new Usuario();
+                            JSONObject obj = new JSONObject(response);
+                            usuario.setId_usuario(obj.getString("id"));
+                            usuario.setEmail(obj.getString("email"));
+                            usuario.setNombre(obj.getString("nombre"));
+                            usuario.setPassword(obj.getString("password"));
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                            if(response.contains("email")){
                             Intent intent = new Intent(Login.this, MainActivity.class);
-
+                            //intent.putExtra("id_usuario", );
                             intent.putExtra("user",et_usuario.getText().toString());
                             intent.putExtra("password", et_contraseña.getText().toString());
-                            //String id= usuarioParse.getId_usuario().toString();
-
-                            //ACA ES DONDE ESTA LO QUE NO PUEDO RESOLVER
-                            //intent.putExtra("id_usuario", id);
-                            intent.putExtra("id_usuario", "1");
-
                             startActivity(intent);
                             } else{
                             Toast.makeText(getApplicationContext(),
